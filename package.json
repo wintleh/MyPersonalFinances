@@ -1,0 +1,14 @@
+{
+  "name": "my-personal-finances",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Hunter Wintle (hunter.wintle@gmail.com)",
+  "license": "ISC",
+  "dependencies": {
+    "fastify": "^2.10.0"
+  }
+}
