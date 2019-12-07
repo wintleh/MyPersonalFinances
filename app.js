@@ -1,16 +1,24 @@
 'use strict'
 
+// Read environment variables
+const env = require('./src/env/env');
+
 const fastify = require('fastify')({
     ignoreTrailingSlash: true,
     logger: true
 })
 
 // Register routes
-fastify.register(require('./routes/root/root'));
-fastify.register(require('./routes/api/bank/bank'), { prefix: '/api/bank'});
+fastify.register(require('./src/routes/root/root'));
+fastify.register(require('./src/routes/api/bank/bank'), { prefix: '/api/bank'}); // UPDATE
 
-// Start server
-fastify.listen(3000, (err, address) => {
+const serverOptions = {
+    host: env.HOST,
+    port: env.PORT
+}
+
+// Start server, get port
+fastify.listen(serverOptions, (err, address) => {
     if (err) {
         fastify.log.error(err);
         process.exit(1);

@@ -4,11 +4,17 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js",
+    "test": "nodemon app.js"
   },
   "author": "Hunter Wintle (hunter.wintle@gmail.com)",
   "license": "ISC",
   "dependencies": {
-    "fastify": "^2.10.0"
+    "dotenv": "^8.2.0",
+    "fastify": "^2.10.0",
+    "mysql": "^2.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.1"
   }
 }
