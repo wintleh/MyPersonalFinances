@@ -5,13 +5,14 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "test": "nodemon app.js"
+    "dev": "nodemon app.js"
   },
   "author": "Hunter Wintle (hunter.wintle@gmail.com)",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^8.2.0",
     "fastify": "^2.10.0",
+    "fastify-static": "^2.5.1",
     "mysql": "^2.17.1"
   },
   "devDependencies": {
