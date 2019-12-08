@@ -6,6 +6,5 @@ env.config();
 // Export all env vars
 module.exports = {
     HOST: process.env.HOST,
-    PORT: process.env.PORT,
-    MERAKI_API_KEY: process.env.MERAKI_API_KEY
+    PORT: process.env.PORT
 }
