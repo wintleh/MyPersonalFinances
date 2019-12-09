@@ -16,7 +16,7 @@ const getBanks = (request, reply) => {
 
 const getBank = (request, reply) => {
 
-    // Gets the bankId from the URL
+    // Get the bankId from the URL
     let bankId = request.params.bankId;
 
     // By default assume that there was an error
@@ -31,7 +31,7 @@ const getBank = (request, reply) => {
 
     // If non-empty object returned, then search was successful
     // Update the responseCode for successful search
-    if (bank !== null) {
+    if (bank) {
         responseCode    = 200;
         response        = bank;
     }
@@ -46,10 +46,13 @@ const getBank = (request, reply) => {
 const createBank = (request, reply) => {
  
     // By default assume that there was an error
-    // Update this code based on the success of creating object
-    let responseCode = 500;
+    // Update code and response based on the success of creating object
+    let responseCode    = 500;
+    let response        = {
+        error: 'Bank not created'
+    }
 
-    // Get the bank name from the body of the post request
+    // Get the bank name from body of request
     let bankName = request.body.bankName;
 
     // Attempt to add bank to storage
@@ -57,34 +60,75 @@ const createBank = (request, reply) => {
 
     // Change code if addition was successful
     if (added) {
-        responseCode = 201;
+        responseCode    = 201;
+        response        = bankStorage.fetchBanks();
     }
 
     // Send response
     reply
         .code(responseCode)
         .header('Content-Type', 'application/json; charset=utf-8')
-        .send(bankStorage.fetchBanks());
+        .send(response);
 }
 
 const updateBank = (request, reply) => {
+
+    // Get the bankId from the URL
+    // Get new bank name from body of request
+    let bankId = request.params.bankId;
+    let newBankName = request.body.bankName;
+
+    // By default assume that there was an error
+    // Update code and response if the bank is found
+    let responseCode    = 404;
+    let response        = {
+        error: `bankId(${bankId}) not found`
+    }
+
+    // Search for specified bank in storage
+    let updated = bankStorage.updateBank(bankId, newBankName);
+
+    // If update was successful
+    // Update the responseCode for successful search
+    if (updated) {
+        responseCode    = 200;
+        response        = bankStorage.fetchBanks();
+    }
+
+    // Send response
     reply
-        .code(200)
+        .code(responseCode)
         .header('Content-Type', 'application/json; charset=utf-8')
-        .send({ 
-            message: 'updateBank not implemented', 
-            bankId: request.params.bankId 
-        });
+        .send(response);
 }
 
 const deleteBank = (request, reply) => {
+
+    // Get the bankId from the URL
+    let bankId = request.params.bankId;
+
+    // By default assume that there was an error
+    // Update code and response if the bank is found
+    let responseCode    = 404;
+    let response        = {
+        error: `bankId(${bankId}) not found`
+    }
+
+    // Attempt to delete specified bank from storage
+    let deleted = bankStorage.deleteBank(bankId);
+
+    // If delete was successful
+    // Update the responseCode and response message for successful delete
+    if (deleted) {
+        responseCode    = 200;
+        response        = 'Successfully deleted bank';
+    }
+
+    // Send response
     reply
-        .code(200)
+        .code(responseCode)
         .header('Content-Type', 'application/json; charset=utf-8')
-        .send({ 
-            message: 'deleteBank not implemented', 
-            bankId: request.params.bankId 
-        });
+        .send(response);
 }
 
 module.exports = { getBanks, getBank, createBank, updateBank, deleteBank };
