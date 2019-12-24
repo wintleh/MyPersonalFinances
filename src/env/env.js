@@ -4,7 +4,4 @@ const env = require('dotenv');
 env.config();
 
 // Export all env vars
-module.exports = {
-    HOST: process.env.HOST,
-    PORT: process.env.PORT
-}
+module.exports = process.env;
