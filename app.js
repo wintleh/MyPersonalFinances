@@ -1,5 +1,7 @@
 'use strict'
 
+const path = require('path');
+
 // Read environment variables
 const env = require('./src/env/env');
 
@@ -12,6 +14,12 @@ const fastify = require('fastify')({
 
 
 // Register mysql middleware
+// Fastify extension to serve static files
+fastify.register(require('fastify-static'), {
+    root: path.join(__dirname, '/src/static')
+});
+
+// Fastify extension to connect with MySQL database
 fastify.register(require('fastify-mysql'), {
     connectionString:   `mysql://${env.DBUSER}:${env.DBPASS}@${env.DBHOST}/${env.DBNAME}`,
     promise:            true
@@ -23,11 +31,12 @@ fastify.register(require('./src/routes/api/bank/router'), { prefix: '/api/bank' 
 
 
 
-// Host and Port for the server
+
+// Get the host and port from environment vars
 const serverOptions = {
     host: env.HOST,
     port: env.PORT
-}
+};
 
 // Start server, get port
 fastify.listen(serverOptions, (err, address) => {
