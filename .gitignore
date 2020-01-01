@@ -65,3 +65,6 @@ typings/
 
 # Todo list
 Todo
+
+# Legacy Folder
+.legacy

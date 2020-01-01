@@ -26,9 +26,40 @@ fastify.register(require('fastify-mysql'), {
 });
 
 // Register routes
-fastify.register(require('./src/routes/root/root'));
-fastify.register(require('./src/routes/api/bank/router'), { prefix: '/api/bank' });
+// Static page route
+fastify.register(
+    require('./src/routes/root/root'));
 
+// API Routes
+// Account type
+fastify.register(require('./src/routes/api/account-type-router'), { 
+    prefix: '/api/account-type'
+});
+
+// Bank account
+fastify.register(require('./src/routes/api/bank-account-router'), { 
+    prefix: '/api/bank-account' 
+});
+
+// Bank
+fastify.register(require('./src/routes/api/bank-router'), { 
+    prefix: '/api/bank' 
+});
+
+// Transaction category
+fastify.register(require('./src/routes/api/transaction-category-router'), { 
+    prefix: '/api/transaction-category'
+});
+
+// Transaction - Not implemented yet
+// fastify.register(require('./src/routes/api/transaction-router'), { 
+//     prefix: '/api/transaction'
+// });
+
+// User
+fastify.register(require('./src/routes/api/user-router'), { 
+    prefix: '/api/user'
+});
 
 
 
