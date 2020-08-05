@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^8.2.0",
-    "fastify": "^2.10.0",
+    "fastify": "^2.15.1",
     "fastify-mysql": "^1.0.0",
     "fastify-static": "^2.5.1",
     "mysql": "^2.17.1"
